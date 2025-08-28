@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Xhosa's— Animal Rescue Home</title>
+  <meta name="description" content="Animal charity website showcasing mission, programs, and ways to donate." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0e1310;
+      --panel: #151922;
+      --muted: #a9b0bd;
+      --text: #eaf0ff;
+      --brand: #3ecf8e; /* teal-green */
+      --brand-2: #7c6afa; /* soft purple */
+      --accent: #ffd166; /* warm yellow */
+      --danger: #ff6b6b;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --radius: 16px;
+      --radius-lg: 24px;
+      --ring: 0 0 0 3px rgba(62,207,142,.35);
+    }
+
+    
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color:var(--text); background: radial-gradient(1200px 600px at 10% -10%, #1b2130 0%, #0e1013 40%), #0e1013;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{max-width:1100px; margin:0 auto; padding:0 20px}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(10px);
+      background: rgba(14,16,19,.7); border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
+    .brand .logo{width:38px; height:38px; border-radius:50%; background: conic-gradient(from 180deg at 50% 50%, var(--brand), var(--brand-2), var(--accent), var(--brand)); display:grid; place-items:center; box-shadow:var(--shadow)}
+    .brand .logo svg{width:22px; height:22px; fill:#0e1013}
+
+    nav ul{list-style:none; display:flex; gap:18px; padding:0; margin:0}
+    nav a{opacity:.92; font-weight:600}
+    nav a:hover{opacity:1}
+
+    .btn{display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0e1013; font-weight:800; padding:12px 16px; border-radius:999px; border:none; cursor:pointer; box-shadow:var(--shadow)}
+    .btn.secondary{background:#242a38; color:var(--text); box-shadow:none; border:1px solid rgba(255,255,255,.06)}
+    .btn.link{background:transparent; color:var(--text); padding:8px 10px}
+    .btn:focus-visible{outline:none; box-shadow:var(--ring)}
+
+    .mobile-toggle{display:none; background:transparent; border:none; color:var(--text)}
+
+    /* Hero */
+    .hero{position:relative; overflow:hidden}
+    .hero .container{display:grid; grid-template-columns: 1.1fr .9fr; gap:38px; align-items:center; padding:56px 20px}
+    .tag{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; font-weight:700; color:#0e1013; background:linear-gradient(135deg, var(--accent), #fff); width:max-content}
+    .tag .dot{width:8px; height:8px; border-radius:999px; background:var(--brand-2)}
+    h1{font-size: clamp(1.8rem, 3.6vw + .5rem, 3rem); margin:14px 0 10px; line-height:1.12}
+    .lead{color:var(--muted); font-size: clamp(1rem, 1.2vw + .5rem, 1.15rem); max-width:52ch}
+    .hero-actions{display:flex; gap:14px; margin-top:18px; flex-wrap:wrap}
+    .hero-ill{
+      position:relative; border-radius: var(--radius-lg); background: linear-gradient(180deg, #1a2030, #131722); border:1px solid rgba(255,255,255,.06); padding:18px; box-shadow: var(--shadow);
+    }
+    .ill-card{display:grid; grid-template-columns: 64px 1fr; gap:12px; align-items:center; background:#0f1320; padding:14px; border-radius:14px; border:1px solid rgba(255,255,255,.06); margin-bottom:12px}
+    .ill-card .icon{width:64px; height:64px; border-radius:14px; display:grid; place-items:center; background: radial-gradient(70% 70% at 30% 30%, rgba(62,207,142,.25), transparent 70%); border:1px dashed rgba(62,207,142,.5)}
+    .ill-card h4{margin:0; font-size:1rem}
+    .ill-card p{margin:4px 0 0; color:var(--muted); font-size:.95rem}
+
+    /* Sections */
+    section{padding:70px 0}
+    section h2{font-size: clamp(1.6rem, 2.6vw + .5rem, 2.2rem); margin:0 0 6px}
+    .sub{color:var(--muted); margin:0 0 24px}
+    .grid{display:grid; gap:18px}
+    .grid.cols-3{grid-template-columns: repeat(3, 1fr)}
+    .grid.cols-2{grid-template-columns: repeat(2, 1fr)}
+
+    .card{background:linear-gradient(180deg, #151a26, #121723); border:1px solid rgba(255,255,255,.06); border-radius: var(--radius); padding:18px; box-shadow:var(--shadow)}
+    .card h3{margin:.2rem 0 .4rem}
+    .card p{color:var(--muted)}
+
+    /* Stats */
+    .stats{display:grid; grid-template-columns: repeat(4, 1fr); gap:14px}
+    .stat{padding:20px; border-radius:var(--radius); background:#0f1420; border:1px solid rgba(255,255,255,.06); text-align:center}
+    .stat .num{font-size:1.8rem; font-weight:800}
+    .stat .label{color:var(--muted)}
+
+    /* Donate */
+    .donate-panel{display:grid; grid-template-columns: 1.2fr .8fr; gap:18px}
+    .amounts{display:flex; flex-wrap:wrap; gap:10px}
+    .chip{padding:10px 14px; border-radius:999px; background:#0f1420; border:1px solid rgba(255,255,255,.06); cursor:pointer; font-weight:700}
+    .chip[aria-pressed="true"]{background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0e1013}
+    .input-row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    input[type="number"], input[type="text"], input[type="email"], textarea{
+      width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.08); background:#0f1420; color:var(--text)
+    }
+
+    .progress{height:12px; width:100%; background:#0f1420; border:1px solid rgba(255,255,255,.06); border-radius:999px; overflow:hidden}
+    .progress > span{display:block; height:100%; width:38%; background:linear-gradient(90deg, var(--brand), var(--brand-2))}
+
+    /* FAQ */
+    details{background:#0f1420; border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:14px}
+    summary{cursor:pointer; font-weight:700}
+    details[open]{box-shadow:var(--shadow)}
+
+    /* Contact */
+    form .row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    form .row + .row{margin-top:12px}
+    .hint{color:var(--muted); font-size:.9rem}
+    .error{color:var(--danger); font-size:.9rem}
+
+    /* Footer */
+    footer{padding:26px 0; border-top:1px solid rgba(255,255,255,.06); background:#0c0f14}
+    .footer-grid{display:grid; grid-template-columns: 2fr 1fr 1fr; gap:18px}
+    .social{display:flex; gap:10px}
+    .social a{display:grid; place-items:center; width:36px; height:36px; border-radius:10px; background:#151a24; border:1px solid rgba(255,255,255,.06)}
+
+    /* Modal */
+    .modal{position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.6); padding:20px}
+    .modal.open{display:grid}
+    .modal .dialog{width:min(560px, 96vw); background:#0f1420; border:1px solid rgba(255,255,255,.08); border-radius:20px; padding:18px; box-shadow:var(--shadow)}
+    .dialog header{position:unset; backdrop-filter:none; background:transparent; border:none; padding:0 0 10px}
+
+    /* Responsive */
+    @media (max-width: 960px){
+      .hero .container{grid-template-columns:1fr}
+      .donate-panel{grid-template-columns:1fr}
+      .grid.cols-3{grid-template-columns:1fr 1fr}
+      .stats{grid-template-columns: repeat(2, 1fr)}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 720px){
+      nav ul{display:none}
+      nav ul.open{display:flex; flex-direction:column; position:absolute; left:0; right:0; top:62px; background:#0e1118; padding:14px 20px; border-bottom:1px solid rgba(255,255,255,.06)}
+      .mobile-toggle{display:inline-grid}
+      .grid.cols-3{grid-template-columns:1fr}
+      .grid.cols-2{grid-template-columns:1fr}
+      form .row{grid-template-columns:1fr}
+      .stats{grid-template-columns: 1fr 1fr}
+      .footer-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- Accessible Skip Link -->
+  <a class="btn link" href="#main" style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden" onfocus="this.style.left='10px'" onblur="this.style.left='-9999px'">Skip to content</a>
+
+  <header>
+    <div class="container nav" role="navigation" aria-label="Primary">
+      <a class="brand" href="#home">
+        <span class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3 3 6 2 7 6 1 4-2 8-7 12-5-4-8-8-7-12 1-4 4-3 7-6Z"/></svg>
+        </span>
+        <span>Xhosa's Animal Rescue Home</span>
+      </a>
+      <button class="mobile-toggle" aria-expanded="false" aria-controls="menu" title="Toggle menu">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <nav>
+        <ul id="menu">
+          <li><a href="#mission">Mission</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#donate">Donate</a></li>
+          <li><a href="#involved">Get Involved</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="btn" href="#donate" aria-label="Donate now">Donate</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" id="home" aria-label="Hero">
+      <div class="container">
+        <div>
+          <span class="tag"><span class="dot"></span> 100% donor-funded</span>
+          <h1>Give animals a second chance—today.</h1>
+          <p class="lead">We rescue, rehabilitate, and rehome vulnerable animals while educating communities and providing affordable veterinary care.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#donate">Donate Now</a>
+            <a class="btn secondary" href="#programs">Explore Programs</a>
+          </div>
+          <div style="margin-top:16px" class="hint">NPO #2025/XHOSA/001 • Section 18A receipts available</div>
+        </div>
+        <div class="hero-ill" aria-hidden="true">
+          <div class="ill-card">
+            <div class="icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c3 3 6 2 7 6 1 4-2 8-7 12-5-4-8-8-7-12 1-4 4-3 7-6Z"/></svg>
+            </div>
+            <div>
+              <h4>Rescue & Shelter</h4>
+              <p>Rapid response and safe housing for at-risk animals.</p>
+            </div>
+          </div>
+          <div class="ill-card">
+            <div class="icon" style="background: radial-gradient(70% 70% at 30% 30%, rgba(124,106,250,.25), transparent 70%); border-color: rgba(124,106,250,.6)">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M4 7h16v2H4zM4 11h16v2H4zM4 15h10v2H4z"/></svg>
+            </div>
+            <div>
+              <h4>Education</h4>
+              <p>Workshops in schools & communities about humane care.</p>
+            </div>
+          </div>
+          <div class="ill-card">
+            <div class="icon" style="background: radial-gradient(70% 70% at 30% 30%, rgba(255,209,102,.25), transparent 70%); border-color: rgba(255,209,102,.6)">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21c-4-3-7-6-7-10a7 7 0 1 1 14 0c0 4-3 7-7 10Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>
+            </div>
+            <div>
+              <h4>Community Vet</h4>
+              <p>Low-cost vaccinations & spay/neuter clinics.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission -->
+    <section id="mission" aria-labelledby="mission-title">
+      <div class="container">
+        <h2 id="mission-title">Our Mission</h2>
+        <p class="sub">To protect and uplift animals through rescue, rehabilitation, and education—building kinder communities for all.</p>
+
+        <div class="grid cols-3">
+          <article class="card">
+            <h3>🐾 Rescue</h3>
+            <p>24/7 hotline and response team to help abused, abandoned, or injured animals get immediate care.</p>
+          </article>
+          <article class="card">
+            <h3>🧬 Rehabilitate</h3>
+            <p>From medical treatment to behavior support, we give every animal the best chance to heal and thrive.</p>
+          </article>
+          <article class="card">
+            <h3>🐕‍🦺 Rehome</h3>
+            <p>Careful matching and support for forever homes, plus post-adoption check-ins to ensure success.</p>
+          </article>
+        </div>
+
+        <div class="stats" style="margin-top:18px">
+          <div class="stat">
+            <div class="num" data-count="1200">0</div>
+            <div class="label">Animals rescued (this year)</div>
+          </div>
+          <div class="stat">
+            <div class="num" data-count="870">0</div>
+            <div class="label">Vaccinations provided</div>
+          </div>
+          <div class="stat">
+            <div class="num" data-count="540">0</div>
+            <div class="label">Adoptions finalized</div>
+          </div>
+          <div class="stat">
+            <div class="num" data-count="320">0</div>
+            <div class="label">Volunteers trained</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programs -->
+    <section id="programs" aria-labelledby="programs-title">
+      <div class="container">
+        <h2 id="programs-title">Our Programs</h2>
+        <p class="sub">Targeted initiatives making real impact.</p>
+
+        <div class="grid cols-3">
+          <article class="card">
+            <h3>Emergency Rescue</h3>
+            <p>Rapid field response, transport, and triage for animals in crisis, coordinated with local authorities.</p>
+          </article>
+          <article class="card">
+            <h3>Rehabilitation Centre</h3>
+            <p>On-site veterinary care, nutrition plans, and enrichment activities to help animals recover fully.</p>
+          </article>
+          <article class="card">
+            <h3>Adoption & Foster</h3>
+            <p>Screening, matching, and support for adopters; foster network for animals needing extra care.</p>
+          </article>
+          <article class="card">
+            <h3>Community Vet Clinics</h3>
+            <p>Weekly mobile clinics offering vaccinations, microchipping, deworming, and basic checkups.</p>
+          </article>
+          <article class="card">
+            <h3>Spay/Neuter Campaigns</h3>
+            <p>Seasonal drives in low-income areas to reduce overpopulation humanely and sustainably.</p>
+          </article>
+          <article class="card">
+            <h3>Education & Outreach</h3>
+            <p>School talks, shelter tours, and workshops on responsible guardianship and animal welfare laws.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Donate -->
+    <section id="donate" aria-labelledby="donate-title">
+      <div class="container">
+        <h2 id="donate-title">Donate</h2>
+        <p class="sub">Your gift powers rescues, vet care, and adoptions. Choose an amount and see your impact.</p>
+
+        <div class="donate-panel">
+          <div class="card">
+            <h3>Choose an amount</h3>
+            <div class="amounts" role="group" aria-label="Suggested amounts">
+              <button class="chip" data-amount="100">R100</button>
+              <button class="chip" data-amount="250">R250</button>
+              <button class="chip" data-amount="500">R500</button>
+              <button class="chip" data-amount="1000">R1 000</button>
+            </div>
+            <div class="input-row" style="margin-top:12px">
+              <label for="custom-amount" class="hint">Or enter a custom amount (R)</label>
+              <input id="custom-amount" type="number" min="10" step="10" placeholder="e.g. 750" />
+              <button id="donate-btn" class="btn" style="margin-top:8px">Donate Securely</button>
+            </div>
+            <div id="impact" class="hint" style="margin-top:10px">Tip: R250 can vaccinate 2 animals and feed 1 for a week.</div>
+
+            <div style="margin-top:16px">
+              <div class="hint">Campaign progress</div>
+              <div class="progress" aria-label="Fundraising progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38"><span></span></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Other ways to give</h3>
+            <ul>
+              <li>Monthly giving (set up a recurring donation)</li>
+              <li>In-kind donations: food, blankets, toys</li>
+              <li>Corporate matching & payroll giving</li>
+              <li>Legacy gifts & bequests</li>
+            </ul>
+            <button class="btn secondary" id="open-pledge" style="margin-top:10px">Make a Monthly Pledge</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Get involved -->
+    <section id="involved" aria-labelledby="involved-title">
+      <div class="container">
+        <h2 id="involved-title">Get Involved</h2>
+        <p class="sub">🐾 Volunteer, 🐕‍🦺 Foster, 💕 Sponsor, or Partner with us.</p>
+        <div class="grid cols-3">
+          <article class="card">
+            <h3>Volunteer</h3>
+            <p>Hands-on shelter help, transport, events, and community outreach. Training provided.</p>
+          </article>
+          <article class="card">
+            <h3>Foster</h3>
+            <p>Short-term homes for animals recovering or awaiting adoption. We supply food & vet care.</p>
+          </article>
+          <article class="card">
+            <h3>Sponsor</h3>
+            <p>Pick a rescue to sponsor and receive updates on their journey to a forever home.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <h2 id="faq-title">Frequently Asked Questions</h2>
+        <div class="grid cols-2">
+          <details>
+            <summary>Are my donations tax-deductible?</summary>
+            <p>Yes. We are a registered public benefit organization and provide Section 18A tax receipts for qualifying donations.</p>
+          </details>
+          <details>
+            <summary>How are funds used?</summary>
+            <p>90% goes directly to programs (rescue, vet care, adoptions, education). 10% covers essential admin and fundraising costs.</p>
+          </details>
+          <details>
+            <summary>Can I visit the shelter?</summary>
+            <p>Absolutely! Visits are by appointment to ensure animal wellbeing. Contact us to schedule.</p>
+          </details>
+          <details>
+            <summary>Do you accept international donations?</summary>
+            <p>Yes. We accept international card payments and bank transfers in multiple currencies.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <h2 id="contact-title">Contact Us</h2>
+        <p class="sub">Have a question or want to get involved? Send a message.</p>
+        <form id="contact-form" class="card" novalidate>
+          <div class="row">
+            <div>
+              <label for="name">Name</label>
+              <input id="name" type="text" required placeholder="Your name" />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" type="email" required placeholder="you@example.com" />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="subject">Subject</label>
+              <input id="subject" type="text" required placeholder="How we can help" />
+            </div>
+            <div>
+              <label for="topic">Topic</label>
+              <input id="topic" type="text" placeholder="Adoption, donation, visit, other" />
+            </div>
+          </div>
+          <div class="row">
+            <div style="grid-column:1/-1">
+              <label for="message">Message</label>
+              <textarea id="message" rows="5" required placeholder="Write your message..."></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="hint" id="form-hint" aria-live="polite">We reply within 2 business days.</div>
+            <div style="text-align:right">
+              <button class="btn" type="submit">Send Message</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="brand"><span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c3 3 6 2 7 6 1 4-2 8-7 12-5-4-8-8-7-12 1-4 4-3 7-6Z"/></svg></span><span>xhosa-animal-rescue</span></div>
+        <p class="hint">Rescue • Rehabilitate • Rehome • Educate</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p class="hint">help@xhosa-animal-rescue.org<br/>+27 (0)61 458 4336<br/>818 NU1, Mdantsane</p>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <div class="social" aria-label="Social links">
+          <a href="#" aria-label="Facebook" title="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-9h3l1-4h-4V7c0-1 0-2 2-2h2V1h-3c-3 0-5 2-5 5v3H6v4h3v9h4Z"/></svg></a>
+          <a href="#" aria-label="Instagram" title="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm6-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/></svg></a>
+          <a href="#" aria-label="Twitter" title="Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.9c-.7.3-1.5.6-2.3.7.9-.5 1.5-1.3 1.8-2.2-.8.5-1.7.8-2.6 1C18 4.7 17 4 15.8 4c-2.2 0-3.8 2-3.3 4.1-3-.2-5.7-1.6-7.5-3.7-.9 1.6-.5 3.7 1 4.6-.6 0-1.2-.2-1.7-.5 0 1.8 1.3 3.3 3 3.6-.6.2-1.2.2-1.8.1.5 1.5 1.9 2.6 3.6 2.7-1.6 1.3-3.7 2.1-5.8 1.8 1.7 1.1 3.7 1.7 5.8 1.7 7 0 10.9-6 10.6-11.4.8-.6 1.5-1.3 2-2.1Z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="margin-top:10px">
+      <p class="hint">© <span id="year"></span> Xhosa's Animal Rescue. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Donation Modal -->
+  <div class="modal" id="donate-modal" role="dialog" aria-modal="true" aria-labelledby="donate-modal-title">
+    <div class="dialog">
+      <header>
+        <h3 id="donate-modal-title">Complete Your Donation</h3>
+      </header>
+      <form id="donation-form">
+        <div class="row">
+          <div>
+            <label for="donor-name">Full name</label>
+            <input id="donor-name" type="text" required placeholder="Your name" />
+          </div>
+          <div>
+            <label for="donor-email">Email for receipt</label>
+            <input id="donor-email" type="email" required placeholder="you@example.com" />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="donation-amount">Amount (R)</label>
+            <input id="donation-amount" type="number" required min="10" step="10" />
+          </div>
+          <div>
+            <label for="donation-type">Frequency</label>
+            <input id="donation-type" type="text" value="Once-off" aria-label="Donation type" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="hint" id="donation-hint" aria-live="polite"><strong>Secure card and EFT options available.</strong><br>
+            Bank Name: Capitec<br>
+            Account Type: Savings<br>
+            Account Number: 2334096993 <br>
+            Account Holder: Mr. S. Xhosa</div>
+          <div style="text-align:right">
+            <button type="button" class="btn secondary" id="close-modal">Cancel</button>
+            <button type="submit" class="btn">Donate R<span id="donate-total">0</span></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Helpers
+    const $ = (sel, ctx=document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx=document) => [...ctx.querySelectorAll(sel)];
+
+    // Mobile nav toggle
+    const toggleBtn = document.querySelector('.mobile-toggle');
+    const menu = document.getElementById('menu');
+    toggleBtn?.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      toggleBtn.setAttribute('aria-expanded', String(open));
+    });
+
+    // Smooth close menu on link click (mobile)
+    $$('#menu a').forEach(a => a.addEventListener('click', ()=> menu.classList.remove('open')));
+
+    // Stats count-up when visible
+    const observer = new IntersectionObserver((entries, obs)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const el = e.target;
+          const target = +el.dataset.count;
+          let cur = 0; const step = Math.max(1, Math.floor(target/80));
+          const tick = () => {
+            cur += step;
+            if(cur >= target){ el.textContent = target.toLocaleString(); }
+            else { el.textContent = cur.toLocaleString(); requestAnimationFrame(tick); }
+          };
+          requestAnimationFrame(tick); obs.unobserve(el);
+        }
+      });
+    }, {threshold:.6});
+    $$('.num').forEach(n=> observer.observe(n));
+
+    // Donation chips and impact calculator
+    const impact = document.getElementById('impact');
+    const customAmount = document.getElementById('custom-amount');
+    const donateBtn = document.getElementById('donate-btn');
+    const chips = $$('.chip');
+
+    function selectAmount(v){
+      chips.forEach(c=> c.setAttribute('aria-pressed','false'));
+      const chip = chips.find(c=> +c.dataset.amount === +v);
+      chip?.setAttribute('aria-pressed','true');
+      customAmount.value = v;
+      updateImpact(v);
+    }
+    function updateImpact(v){
+      const amt = +v || 0;
+      const vacc = Math.floor(amt / 120); // R120 per vaccine
+      const meals = Math.floor(amt / 80); // R80 per week of food
+      impact.textContent = `Estimated impact: ${vacc} vaccination${vacc!==1?'s':''} and ${meals} week${meals!==1?'s':''} of food.`;
+    }
+    chips.forEach(chip=> chip.addEventListener('click', ()=> selectAmount(chip.dataset.amount)));
+    customAmount.addEventListener('input', e=> updateImpact(e.target.value));
+
+    // Modal donate flow
+    const modal = document.getElementById('donate-modal');
+    const openPledge = document.getElementById('open-pledge');
+    const closeModal = document.getElementById('close-modal');
+    const donateTotal = document.getElementById('donate-total');
+    const donationAmount = document.getElementById('donation-amount');
+    const donationType = document.getElementById('donation-type');
+
+    function openModal(type='Once-off'){
+      modal.classList.add('open');
+      donationType.value = type;
+      donationAmount.value = customAmount.value || chips[1].dataset.amount; // default R250
+      donateTotal.textContent = (+donationAmount.value || 0).toLocaleString();
+      $('#donor-name').focus();
+    }
+    function close(){ modal.classList.remove('open'); }
+
+    donateBtn.addEventListener('click', ()=> openModal('Once-off'));
+    openPledge.addEventListener('click', ()=> openModal('Monthly'));
+    closeModal.addEventListener('click', close);
+    modal.addEventListener('click', (e)=> { if(e.target === modal) close(); });
+    donationAmount.addEventListener('input', ()=> donateTotal.textContent = (+donationAmount.value || 0).toLocaleString());
+
+    // Fake submit handlers
+    $('#donation-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      alert('Thank you! Your donation has been recorded for demo purposes.');
+      close();
+    });
+
+    // Contact form validation (basic)
+    $('#contact-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = $('#name').value.trim();
+      const email = $('#email').value.trim();
+      const message = $('#message').value.trim();
+      const hint = $('#form-hint');
+      if(!name || !email || !message){
+        hint.textContent = 'Please complete all required fields.';
+        hint.className = 'error';
+        return;
+      }
+      hint.className = 'hint';
+      hint.textContent = 'Thanks! Your message has been sent.';
+      e.target.reset();
+    });
+
+    // Year
+    $('#year').textContent = new Date().getFullYear();
+
+    // Default selected amount
+    selectAmount(250);
+  </script>
+</body>
+</html>
